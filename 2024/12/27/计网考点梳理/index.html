@@ -1,0 +1,224 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>kristal | kristal</title><meta name="author" content="kkkkr"><meta name="copyright" content="kkkkr"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="title: 计网考点梳理date: 20241227 20:19:18tags:概述 分组转发是网络核心部分最重要的功能。 路由器是实现分组交换 (packet switching) 的关键构件，其任务是转发收到的分组。  第一章 物理层计算机体系结构    * OSI：物理层 数据链路层 网络层 运输层 会话层 表示层 应用层    * TCP&#x2F;IP：网络接口层 网际层 运输层 应">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kristal">
+<meta property="og:url" content="https://kkkkrs.github.io/2024/12/27/%E8%AE%A1%E7%BD%91%E8%80%83%E7%82%B9%E6%A2%B3%E7%90%86/index.html">
+<meta property="og:site_name" content="kristal">
+<meta property="og:description" content="title: 计网考点梳理date: 20241227 20:19:18tags:概述 分组转发是网络核心部分最重要的功能。 路由器是实现分组交换 (packet switching) 的关键构件，其任务是转发收到的分组。  第一章 物理层计算机体系结构    * OSI：物理层 数据链路层 网络层 运输层 会话层 表示层 应用层    * TCP&#x2F;IP：网络接口层 网际层 运输层 应">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kkkkrs.github.io/img/avatar.png">
+<meta property="article:published_time" content="2024-12-27T12:19:18.071Z">
+<meta property="article:modified_time" content="2024-12-29T06:32:42.701Z">
+<meta property="article:author" content="kkkkr">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kkkkrs.github.io/img/avatar.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "",
+  "url": "https://kkkkrs.github.io/2024/12/27/%E8%AE%A1%E7%BD%91%E8%80%83%E7%82%B9%E6%A2%B3%E7%90%86/",
+  "image": "https://kkkkrs.github.io/img/avatar.png",
+  "datePublished": "2024-12-27T12:19:18.071Z",
+  "dateModified": "2024-12-29T06:32:42.701Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "kkkkr",
+      "url": "https://kkkkrs.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/avatar.png"><link rel="canonical" href="https://kkkkrs.github.io/2024/12/27/%E8%AE%A1%E7%BD%91%E8%80%83%E7%82%B9%E6%A2%B3%E7%90%86/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'kristal',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/mweb-indigo.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">kristal</span></a><a class="nav-page-title" href="/"><span class="site-name">kristal</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">无标题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-12-27T12:19:18.071Z" title="发表于 2024-12-27 20:19:18">2024-12-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-12-29T06:32:42.701Z" title="更新于 2024-12-29 14:32:42">2024-12-29</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><hr>
+<h2 id="title-计网考点梳理date-20241227-20-19-18tags"><a href="#title-计网考点梳理date-20241227-20-19-18tags" class="headerlink" title="title: 计网考点梳理date: 20241227 20:19:18tags:"></a>title: 计网考点梳理<br>date: 20241227 20:19:18<br>tags:</h2><h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><ul>
+<li>分组转发是网络核心部分最重要的功能。</li>
+<li>路由器是实现分组交换 (packet switching) 的关键构件，其任务是转发收到的分组。</li>
+</ul>
+<h1 id="第一章-物理层"><a href="#第一章-物理层" class="headerlink" title="第一章 物理层"></a>第一章 物理层</h1><p><strong>计算机体系结构</strong><br>    * OSI：物理层 数据链路层 网络层 运输层 会话层 表示层 应用层<br>    * TCP&#x2F;IP：网络接口层 网际层 运输层 应用层<br>    * 五层体系：物理层 数据链路层 网络层 运输层 应用层</p>
+<p><strong>RFC</strong>  Request For Comments<br><strong>C&#x2F;S，P2P</strong><br><strong>电路交换，分组交换（优缺点），报 文交换</strong><br><strong>网络概念及分类（WAN，MAN，LAN，PAN）</strong><br><strong>性能指标（速率，带宽，吞吐量，时延（发送时延，传播时延），带宽时延积，RTT，利用率）</strong><br><strong>ISO OSI&#x2F;RM</strong><br><strong>TCP&#x2F;IP&#x2F;RM</strong><br><strong>协议（三要素），服务</strong></p>
+<h1 id="第二章-物理层"><a href="#第二章-物理层" class="headerlink" title="第二章 物理层"></a>第二章 物理层</h1><p>物理层考虑的是怎样才能在连接各种计算机的传输媒体上传输数据比特流，而不是指具体的传输媒体。<br>作用：尽可能屏蔽掉不同传输媒体和通信手段的差异。</p>
+<p>四个特性：机械、电气、功能、过程</p>
+<p>曼彻斯特编码和差分曼彻斯特编码产生的信号频率比不归零制高。</p>
+<p>曼彻斯特编码和差分曼彻斯特编码具有自同步能力。</p>
+<p>奈氏准则：码元传输的最高速率 &#x3D; 2W </p>
+<p>香农公式：C &#x3D; W log2(1+S&#x2F;N)  (bit&#x2F;s) </p>
+<p>信噪比(dB) &#x3D; 10 log10(S&#x2F;N ) (dB) </p>
+<p>传输媒体是数据传输系统中在发送器和接收器之间的物理通路。<br>两大类：</p>
+<ul>
+<li>导引型传输媒体：电磁波被导引沿着固体媒体（铜线或光纤）传播。</li>
+<li>非导引型传输媒体：指自由空间。非导引型传输媒体中电磁波的传输常称为无线传输。</li>
+</ul>
+<p><strong>四个特性（机械，电气，功能，过程）</strong><br><strong>码元</strong><br><strong>编码（不归零，归零，曼彻斯特，差分曼彻斯特）</strong><br><strong>调制（调幅，调频，调相）</strong><br><strong>奈奎斯特定理（奈氏准则），香农公式</strong><br><strong>传输介质（引导型（双绞线，同轴电缆，光纤），非引导型（无线电微波，卫星））</strong><br><strong>信道复用技术（频分，时分（统计时分），波分，码分）</strong><br><strong>同步光纤网SONET，同步数字系列SDH</strong><br><strong>ADSL，光纤同轴混合网（HFC网），FTTx 技术</strong></p>
+<h1 id="第三章-数据链路层"><a href="#第三章-数据链路层" class="headerlink" title="第三章 数据链路层"></a>第三章 数据链路层</h1><p><strong>CRC</strong>循环冗余校验码<br><strong>PPP</strong><br><strong>零比特插入</strong>ppp用在同步传输链路时<br>字节填充法 异步传输<br><strong>CSMA&#x2F;CD，争用期，最小帧长，退避算法</strong><br><strong>MAC 地址</strong><br><strong>MAC 帧格式</strong><br><strong>物理层扩展以太网:集线器</strong><br><strong>数据链路层扩展以太网:交换机， 自学习， STP</strong><br><strong>802.1Q VLAN</strong><br><strong>FE GE 10GE</strong></p>
+<h1 id="第四章-网络层"><a href="#第四章-网络层" class="headerlink" title="第四章 网络层"></a>第四章 网络层</h1><p><strong>虚电路，数据报</strong><br><strong>控制面，数据面（路由，转发）</strong><br><strong>互联设备（集线器（转发器），交换机（网桥），路由器，网关）</strong><br><strong>IP地址（分类，CIDR），ARP，IP数据报格式，转发分组过程，ICMP</strong></p>
+<ul>
+<li>CIDR 提升ip地址利用率 ip地址&#x3D;网络前缀+主机号，网络前缀不定长</li>
+<li>每个子网中地址全0，全1不能分配给特定节点使</li>
+<li>ARP 用于查询同一网络中ip地址对应的mac地址 </li>
+<li>每台主机、路由器都有ARP表</li>
+<li>ARP请求分组 广播帧  ，PDU有自己的ip MAC 被寻找的ip </li>
+<li>APR响应分组 单播帧</li>
+<li>一个ARP分组为28B（以太网MAC帧数据部分要大于46小于1500）<br><strong>IPv6</strong><br><strong>路由协议：RIP OSPF BGP</strong><br><strong>路由器</strong><br><strong>IP多播 IGMP 多播路由选择协议</strong><br><strong>VPN NAT</strong></li>
+<li>NAT 网络地址转换 	将外网ip地址映射为内网ip地址 </li>
+<li>NAT路由器在内网和外网之间转发ip数据报时会更改源ip和目的ip地址，普通的路由器不会</li>
+<li>地址+端口号&gt;特定的进程</li>
+<li>外网ip（全球唯一的IP地址） 内网ip（可以复用，在 局域网内部唯一）<br><strong>MPLS</strong><br><strong>SDN</strong></li>
+</ul>
+<h1 id="第五章-运输层"><a href="#第五章-运输层" class="headerlink" title="第五章 运输层"></a>第五章 运输层</h1><p><strong>端口</strong></p>
+<ul>
+<li>作用：	<br><strong>UDP，伪首部</strong><br><strong>传输控制协议 TCP</strong><br> <strong>可靠传输的工作原理：停止等待，连续ARQ，滑动窗口</strong><br><strong>TCP 报文段的首部格式</strong><br><strong>TCP 可靠传输的实现：滑动窗口，超时重传时间</strong><br><strong>TCP 的流量控制：滑动窗口</strong><br><strong>TCP 的拥塞控制：慢开始 、拥塞避免、快重传、快恢复， RED</strong></li>
+<li>拥塞控制：控制整个网络每台主机的数据发送量，降低路由器负载</li>
+<li>发送窗口小于接受窗口和拥塞窗口</li>
+<li>慢慢开始   拥塞避免算法</li>
+<li>快重传、快恢复算法：拥塞时将阈值和拥塞窗口设为1&#x2F;2 阈值不能小于2<br><strong>TCP 的运输连接管理：三次握手四次放手</strong></li>
+</ul>
+<h1 id="第六章-应用层"><a href="#第六章-应用层" class="headerlink" title="第六章 应用层"></a>第六章 应用层</h1><p><strong>DNS</strong></p>
+<ul>
+<li>域名系统，用来把人们使用的机器名字（域名）转换为 IP 地址。</li>
+<li>采用层次树状结构的命名方法</li>
+</ul>
+<p>C&#x2F;S模型 客户服务器模型 客户之间不会直接通信 服务器负载较大<br><strong>FTP TFTP</strong><br>FTP：文件传送协议  提供不同种类主机系统之间的文件传输能力</p>
+<p>基于C&#x2F;S协议</p>
+<p>输入FTP地址 用户名 密码 匿名登陆 </p>
+<p>使用TCP实现 	</p>
+<p>TFTP：简单文件传送协议</p>
+<p><strong>TELNET</strong><br><strong>WWW URL HTTP HTML</strong><br><strong>STMP POP3 IMAP MIME</strong><br><strong>DHCP</strong></p>
+<ul>
+<li>给刚接入网络的主机动态分配ip地址、配置默认网关、子网掩码</li>
+<li>DHCP发现报文&gt;UDP数据报&gt;ip数据报（广播数据报）&gt;MAC帧（广播帧 ）</li>
+<li>DHCP提供报文&gt;UDP数据报&gt;ip数据报（广播数据报）&gt;MAC帧（单播帧 ）</li>
+<li>DHCP请求报文&gt;UDP数据报&gt;ip数据报（广播数据报）&gt;MAC帧（广播帧 ）  DHCP服务器很多，所以需要广播</li>
+<li>DHCP确认报文&gt;UDP数据报&gt;ip数据报（广播数据报）&gt;MAC帧（单播帧 ）</li>
+<li>67这个端口号只能由DHCP使用</li>
+</ul>
+<h1 id="第九章-无线网络"><a href="#第九章-无线网络" class="headerlink" title="第九章 无线网络"></a>第九章 无线网络</h1><p><strong>无线局域网 WLAN</strong><br><strong>无线局域网的组成</strong><br><strong>802.11 局域网的物理层</strong><br><strong>802.11 局域网的 MAC 层协议，CSMA&#x2F;CA，隐蔽站，预约（RTS，CTS）</strong><br>（RTS，CTS）**<br><strong>802.11 局域网的 MAC 帧：控制帧、数据帧和管理帧</strong></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://kkkkrs.github.io">kkkkr</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://kkkkrs.github.io/2024/12/27/%E8%AE%A1%E7%BD%91%E8%80%83%E7%82%B9%E6%A2%B3%E7%90%86/">https://kkkkrs.github.io/2024/12/27/%E8%AE%A1%E7%BD%91%E8%80%83%E7%82%B9%E6%A2%B3%E7%90%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://kkkkrs.github.io" target="_blank">kristal</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/avatar.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">kkkkr</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/kkkkrs"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#title-%E8%AE%A1%E7%BD%91%E8%80%83%E7%82%B9%E6%A2%B3%E7%90%86date-20241227-20-19-18tags"><span class="toc-number">1.</span> <span class="toc-text">title: 计网考点梳理date: 20241227 20:19:18tags:</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number"></span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E7%89%A9%E7%90%86%E5%B1%82"><span class="toc-number"></span> <span class="toc-text">第一章 物理层</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E7%89%A9%E7%90%86%E5%B1%82"><span class="toc-number"></span> <span class="toc-text">第二章 物理层</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82"><span class="toc-number"></span> <span class="toc-text">第三章 数据链路层</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E7%BD%91%E7%BB%9C%E5%B1%82"><span class="toc-number"></span> <span class="toc-text">第四章 网络层</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-%E8%BF%90%E8%BE%93%E5%B1%82"><span class="toc-number"></span> <span class="toc-text">第五章 运输层</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-%E5%BA%94%E7%94%A8%E5%B1%82"><span class="toc-number"></span> <span class="toc-text">第六章 应用层</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B9%9D%E7%AB%A0-%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C"><span class="toc-number"></span> <span class="toc-text">第九章 无线网络</span></a></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/" title="计算机网络复习整理">计算机网络复习整理</a><time datetime="2024-12-29T06:36:39.000Z" title="发表于 2024-12-29 14:36:39">2024-12-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/27/%E8%AE%A1%E7%BD%91%E8%80%83%E7%82%B9%E6%A2%B3%E7%90%86/" title="无标题">无标题</a><time datetime="2024-12-27T12:19:18.071Z" title="发表于 2024-12-27 20:19:18">2024-12-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/26/%E4%BD%A0%E5%A5%BD/" title="你好">你好</a><time datetime="2024-12-26T07:07:23.000Z" title="发表于 2024-12-26 15:07:23">2024-12-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/26/%E9%87%8D%E5%BA%86%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AE%80%E7%AD%94%E9%A2%98%E6%95%B4%E7%90%86/" title="重庆大学操作系统简答题整理">重庆大学操作系统简答题整理</a><time datetime="2024-12-26T02:26:06.000Z" title="发表于 2024-12-26 10:26:06">2024-12-26</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2024 By kkkkr</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
