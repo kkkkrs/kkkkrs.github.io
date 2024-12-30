@@ -1,0 +1,418 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>计网简答题和协议 | kristal</title><meta name="author" content="kkkkr"><meta name="copyright" content="kkkkr"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1. 请结合网络层、链路层及 VLAN 的相关协议原理,说明Ping否恰当并说明理由。  Ping 通过 ICMP 发送报文;ICMP 封装在 IP 报文中向下传递; IP 向下传递的时候需要执行 ARP 地址解析协议,解析目标地址的物理地址; ARP 报文需以链路层广播报文的方式发出请求; VLAN2 主机广播报文不能到达 VLAN3,从而无法取得 VLAN3 中主机的物理地址; ARP 协议无">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计网简答题和协议">
+<meta property="og:url" content="https://kkkkrs.github.io/2024/12/30/%E8%AE%A1%E7%BD%91%E7%AE%80%E7%AD%94%E9%A2%98%E5%92%8C%E5%8D%8F%E8%AE%AE/index.html">
+<meta property="og:site_name" content="kristal">
+<meta property="og:description" content="1. 请结合网络层、链路层及 VLAN 的相关协议原理,说明Ping否恰当并说明理由。  Ping 通过 ICMP 发送报文;ICMP 封装在 IP 报文中向下传递; IP 向下传递的时候需要执行 ARP 地址解析协议,解析目标地址的物理地址; ARP 报文需以链路层广播报文的方式发出请求; VLAN2 主机广播报文不能到达 VLAN3,从而无法取得 VLAN3 中主机的物理地址; ARP 协议无">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kkkkrs.github.io/img/avatar.png">
+<meta property="article:published_time" content="2024-12-30T12:17:35.000Z">
+<meta property="article:modified_time" content="2024-12-30T12:17:52.692Z">
+<meta property="article:author" content="kkkkr">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kkkkrs.github.io/img/avatar.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "计网简答题和协议",
+  "url": "https://kkkkrs.github.io/2024/12/30/%E8%AE%A1%E7%BD%91%E7%AE%80%E7%AD%94%E9%A2%98%E5%92%8C%E5%8D%8F%E8%AE%AE/",
+  "image": "https://kkkkrs.github.io/img/avatar.png",
+  "datePublished": "2024-12-30T12:17:35.000Z",
+  "dateModified": "2024-12-30T12:17:52.692Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "kkkkr",
+      "url": "https://kkkkrs.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/avatar.png"><link rel="canonical" href="https://kkkkrs.github.io/2024/12/30/%E8%AE%A1%E7%BD%91%E7%AE%80%E7%AD%94%E9%A2%98%E5%92%8C%E5%8D%8F%E8%AE%AE/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '计网简答题和协议',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/mweb-indigo.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">kristal</span></a><a class="nav-page-title" href="/"><span class="site-name">计网简答题和协议</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">计网简答题和协议</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-12-30T12:17:35.000Z" title="发表于 2024-12-30 20:17:35">2024-12-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-12-30T12:17:52.692Z" title="更新于 2024-12-30 20:17:52">2024-12-30</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">8.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>24分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p><strong>1. 请结合网络层、链路层及 VLAN 的相关协议原理,说明Ping否恰当并说明理由。</strong></p>
+<ol>
+<li>Ping 通过 ICMP 发送报文;ICMP 封装在 IP 报文中向下传递;</li>
+<li>IP 向下传递的时候需要执行 ARP 地址解析协议,解析目标地址的物理地址;</li>
+<li>ARP 报文需以链路层广播报文的方式发出请求; VLAN2 主机广播报文不能到达 VLAN3,从而无法取得 VLAN3 中主机的物理地址;</li>
+<li>ARP 协议无法取得物理地址,从而无法执行 IP 报文向下传递。</li>
+</ol>
+<p><strong>2. 如果 H3 上运行有 WEB 服务,按图中的拓扑结构组网,假定线路、设备及配置均无故障,现在从 H1 Ping H3 结果为超时;但从 H1 上通过浏览器访问 H3 上的 WEB 网站却能访问。请简要分析下出现这个现象的原因,这个现象说明了什么网络原理?</strong><br>可能的原因目标主机 H3 上关闭了 ICMP 的请求响应协议,因此不对 Ping 命令发出的请求作出响应;但是目标主机上启动了对应的 HTTP 协议&#x2F;WEB 服务。这个现象说明了网络通信是对等协议实体之间的通信。</p>
+<p><strong>3. 结合路由器的工作原理，说明访问者机器在执行ARP协议的时候，能否直接请求解析新浪网服务器的物理地址及其原因。</strong><br>不能。根据ARP协议原理，对于指定的IP地址，若要取得其物理地址，需要请求方发出广播包，目标主机定向响应；因为目标主机与源主机不在同一个网段，中间通过了多个路由器连接，路由器不支持网络层的广播，因此广播包不可能到达目标主机；即使在链路层生成帧的时候直接填上了目标主机的物理地址，该帧也会因为在本地网络中找不到接收者，而被直接丢弃。</p>
+<p><strong>4. 试从网络层、数据链路层的数据收发原理出发,说明同样作为数据收发设备的网桥(交换机)和路由器,为什么网桥(交换机)的端口不需要有物理地址而路由器的端口需要有 IP 地址和物理地址?</strong><br>网桥（交换机）：<br>工作在数据链路层，只需要使用其他设备的MAC地址完成数据帧转发。<br>自身不参与通信，端口不需要分配物理地址或IP地址。<br>路由器：<br>工作在网络层，需要参与通信，分配每个端口的IP地址用于网络层的路由，同时需要物理地址用于链路层通信。<br>IP地址用于标识路由器端口在网络中的位置，物理地址用于实现点对点的数据帧传输。</p>
+<p><strong>5. 简述无线局域网 802.11 协议中隐蔽站问题(可用图和文字描述)?并给出 802.11 中解决这个问题的具体机制。</strong><br>隐蔽站问题: 未能检测出媒体上已存在的信号的问题叫做隐蔽站问题(hidden station problem) ,如图所示:当 A 和 C 检测不到无线信号时,都以为 B 是空闲的,因而都向 B 发送数据,结果发生碰撞。<br><img src="/%E9%9A%90%E8%94%BD%E7%AB%99%E9%97%AE%E9%A2%98.png" alt="隐蔽站问题"><br>解决问题的 RTS&#x2F;CTS 机制<br>RTS&#x2F;CTS 机制的基本思想是：通过短的控制包来预留出带宽。方法如下:</p>
+<ol>
+<li>发送方通过发送 RTS 请求请求发送。</li>
+<li>接收方用 CTS 回应发送请求</li>
+<li>CTS 为发送方预留带宽的同时通告所有节点</li>
+</ol>
+<p><strong>6. 电子邮件的处理中涉及 4 个电子邮件相关的协议。请问它们分别是什么？它们的作用分别是什么?</strong></p>
+<ul>
+<li><code>SMTP</code>协议：即简单邮件传输协议，是一组用于从源地址到目的地址传输邮件的规范，主要用于发送邮件</li>
+<li><code>POP3</code>协议：即邮局协议的第 3 个版本，主要用于从邮件服务器中检索电子邮件并下载到本地设备</li>
+<li><code>IMAP</code> 协议：即互联网信息访问协议，是一种优于 POP 的新协议，用于从本地邮件客户端访问远程服务器上的邮件</li>
+<li><code>MIME</code> 协议：即多用途互联网邮件扩展，它不是一种独立的协议，而是对 SMTP 的扩展，用于解决 SMTP 最初只能传输纯文本邮件的限制</li>
+</ul>
+<p><strong>7. 请分别说明什么是协议和服务，并列出它们的区别和联系。</strong></p>
+<ul>
+<li>区别<ul>
+<li>协议的实现保证了能够向上一层提供服务。使用本层服务的实体只能看见服务而无法看见下面的协议。下面的协议对上面的实体是透明的。</li>
+<li>协议是“水平的”即协议是控制对等实体之间通信的规则。但服务是“垂直的”，即服务是由下层向上层通过层间接口提供的。</li>
+</ul>
+</li>
+<li>联系<ul>
+<li>在协议的控制下，两个对等实体间的通信使得本层能够向上一层提供服务。要实现本层协议，还需要使用下面一层所提供的服务。</li>
+</ul>
+</li>
+</ul>
+<p><strong>8. 请比较RIP和OSPF两种路由协议的工作原理。</strong></p>
+<ul>
+<li>OSPF向本自治系统的所有路由器发布消息；RIP只和相邻路由器交换信息。</li>
+<li>OSPF发送与本路由器相邻的所有路由器链路状态；RIP交换完整的路由表。</li>
+<li>OSPF只有链路状态发生变化时才用洪泛法；RIP定期交换信息。</li>
+</ul>
+<p><strong>9. 请分别描述 DV 和 LS 两种路由算法的基本思想。</strong><br>距离向量是一种分布式路由算法。每个节点知道与其邻居的链路距离，将已知的最短距离向量通告给所有邻居，并使用接收到的向量来更新自己的向量。定期重复这一过程。<br>链路状态是距离向量的替代方案。每个节点通过链路状态包（LSPs）洪泛其邻居的信息。所有节点学习完整的网络拓扑图，<br>运行 Dijkstra 算法来计算通往每个目的地的路径。</p>
+<p><strong>10. 请分别给出不同网络层次所对应的互联设备名称并简述各自的基本工作原理。</strong><br>物理层<br>    中继器<br>    - <strong>基本工作原理</strong>： 中继器工作在物理层，主要功能是对信号进行再生和放大。在网络传输中，信号会因传输距离增加而衰减，导致信号失真，影响数据传输的准确性。中继器接收衰减的信号，将其恢复到原始的强度和形状，然后重新发送出去，以延长信号的传输距离。例如，在早期的以太网中，使用同轴电缆连接计算机，当电缆长度超过一定限制时，就需要中继器来增强信号，确保数据能够准确传输到更远的设备。<br>2. <strong>数据链路层互联设备 - 网桥（Bridge）与交换机（Switch）</strong><br>    - <strong>网桥基本工作原理</strong>：网桥工作在数据链路层，它依据MAC地址来转发数据帧。网桥刚接入网络时，其MAC地址表为空。当网桥从某个端口接收到数据帧后，会记录帧中的源MAC地址与该端口的对应关系，从而逐渐学习网络中的MAC地址分布。对于接收到的数据帧，网桥会根据目的MAC地址在MAC地址表中查找对应的转发端口。若找到匹配项，就将数据帧从该端口转发出去；若未找到，则向除接收端口外的所有其他端口转发（泛洪）。例如，在一个由多个子网组成的局域网中，网桥可以连接不同子网，并根据MAC地址决定数据帧在子网间的转发路径。<br>    - <strong>交换机基本工作原理</strong>：交换机本质上也是数据链路层设备，同样基于MAC地址转发数据帧。它通过对每个端口接收到的数据帧的源MAC地址进行学习，构建并维护MAC地址表。与网桥不同的是，交换机通常具有多个端口，并且采用硬件ASIC芯片实现数据的高速转发。当交换机接收到数据帧时，它会快速查找MAC地址表，根据目的MAC地址将数据帧直接转发到对应的端口，大大提高了数据转发的效率。现代交换机还支持全双工通信，允许设备同时进行数据的发送和接收。<br>3. <strong>网络层互联设备 - 路由器（Router）</strong><br>    - <strong>基本工作原理</strong>：路由器工作在网络层，主要依据IP地址来转发数据包。路由器中维护着路由表，路由表包含了网络地址与下一跳地址的映射关系。当路由器接收到一个数据包时，它首先检查数据包的目的IP地址，然后在路由表中查找匹配的条目。如果找到匹配的路由条目，路由器会根据条目中指定的下一跳地址，将数据包转发到相应的端口；如果没有找到匹配条目，根据配置，路由器可能会丢弃数据包或向源设备发送不可达消息。路由表的生成可以是静态配置的，也可以通过动态路由协议（如RIP、OSPF等）自动学习网络拓扑变化并更新。例如，在一个跨区域的企业网络中，路由器连接不同的子网和广域网链路，根据数据包的目的IP地址，选择最佳路径将数据包转发到目标网络。<br>4. <strong>应用层互联设备 - 网关（Gateway）</strong><br>    - <strong>基本工作原理</strong>：网关工作在应用层，它是一种复杂的网络互联设备，用于连接不同体系结构的网络或在不同协议之间进行转换。网关可以理解为一个“协议转换器”，当两个使用不同协议的网络需要进行通信时，网关会对收到的数据进行协议转换，使其能够被目标网络所理解和处理。例如，企业内部网络使用私有IP地址和特定的内部通信协议，而要与外部互联网进行通信，就需要通过网关（如防火墙、代理服务器等）将内部协议转换为互联网通用的TCP&#x2F;IP协议，并进行地址转换（NAT），实现内部网络与外部网络的互联互通。同时，网关还可以提供诸如安全过滤、应用代理等功能，保障网络通信的安全和合规性。 </p>
+<p><strong>12. 请给出TCP拥塞控制的具体做法。</strong></p>
+<p>TCP拥塞控制的具体做法主要包括以下几个阶段和机制：</p>
+<h3 id="慢启动阶段"><a href="#慢启动阶段" class="headerlink" title="慢启动阶段"></a>慢启动阶段</h3><ul>
+<li><strong>初始设置</strong>：在TCP连接建立初期，发送方会将拥塞窗口（cwnd）初始化为一个较小的值，通常为1个最大报文段大小（MSS），或者根据系统设置和网络状况取其他较小的值，但一般不超过2-4个MSS .</li>
+<li><strong>指数增长</strong>：发送方每收到一个对新发送报文段的确认，就会将拥塞窗口增加一个MSS的大小，即拥塞窗口呈指数增长。例如，第一次收到确认后，cwnd变为2个MSS；第二次收到确认后，cwnd变为4个MSS，以此类推。这样可以使发送方快速探测网络的可用带宽，但同时也避免了一开始就向网络中注入过多的数据而导致拥塞.</li>
+</ul>
+<h3 id="拥塞避免阶段"><a href="#拥塞避免阶段" class="headerlink" title="拥塞避免阶段"></a>拥塞避免阶段</h3><ul>
+<li><strong>阈值判断</strong>：当拥塞窗口大小超过慢启动阈值（ssthresh）时，TCP进入拥塞避免阶段。ssthresh的初始值一般较难确定，通常可设置为65535字节或根据网络状况和性能需求进行调整.</li>
+<li><strong>线性增长</strong>：在拥塞避免阶段，拥塞窗口不再呈指数增长，而是每经过一个往返时间（RTT），拥塞窗口cwnd的值增加1个MSS，实现线性增长。这样可以更平缓地增加发送数据的速率，进一步避免网络拥塞.</li>
+</ul>
+<h3 id="快速重传阶段"><a href="#快速重传阶段" class="headerlink" title="快速重传阶段"></a>快速重传阶段</h3><ul>
+<li><strong>重复确认检测</strong>：接收方在收到乱序的报文段时，会立即发送一个重复的确认报文给发送方，告知其期望收到的下一个报文段的序列号。如果发送方收到了对同一个报文段的三个重复确认（duplicate ACKs），则认为该报文段在网络中丢失了，需要进行快速重传，而不必等待超时定时器超时.</li>
+<li><strong>重传操作</strong>：发送方一旦收到三个重复确认，就会立即重传丢失的报文段，而不是等到超时后再重传，从而减少了数据传输的延迟，提高了网络的传输效率.</li>
+</ul>
+<h3 id="快速恢复阶段"><a href="#快速恢复阶段" class="headerlink" title="快速恢复阶段"></a>快速恢复阶段</h3><ul>
+<li><strong>参数调整</strong>：当发送方收到三个重复确认并进行快速重传后，会执行快速恢复算法。首先，将慢启动阈值ssthresh设置为当前拥塞窗口cwnd的一半；然后，将拥塞窗口cwnd设置为ssthresh加上3倍的MSS ，这是因为收到三个重复确认意味着有三个报文段已经离开了网络，可以适当增加拥塞窗口的大小以继续发送数据.</li>
+<li><strong>窗口调整与数据发送</strong>：在快速恢复阶段，每收到一个重复的确认，拥塞窗口cwnd就增加1个MSS 。当收到新的确认报文，表明丢失的报文段已经被接收方成功接收，此时将拥塞窗口cwnd设置为ssthresh的值，然后进入拥塞避免阶段，继续以线性增长的方式调整拥塞窗口大小.</li>
+</ul>
+<h3 id="超时重传阶段"><a href="#超时重传阶段" class="headerlink" title="超时重传阶段"></a>超时重传阶段</h3><ul>
+<li><strong>超时判断</strong>：发送方在发送每个报文段时都会启动一个超时定时器。如果在定时器超时之前没有收到对该报文段的确认，发送方就认为该报文段在网络传输过程中丢失了，此时会触发超时重传机制.</li>
+<li><strong>恢复操作</strong>：发生超时时，发送方会将慢启动阈值ssthresh降低为当前拥塞窗口cwnd的一半，同时将拥塞窗口cwnd重新设置为1个MSS，并重新进入慢启动阶段，重新开始探测网络的可用带宽，以避免网络拥塞进一步加剧.</li>
+</ul>
+<p><strong>13. 请简述计算机网络协议的三个组成要素。</strong></p>
+<ul>
+<li>语法：约定数据与控制信息的结构和格式。</li>
+<li>语义：通信双方如何操作和应答。</li>
+<li>时序：详细说明事件实现的先后顺序。</li>
+</ul>
+<p><strong>14. 请说明物理层的四个特性。</strong></p>
+<ul>
+<li>机械特性：指明接口所用接线器的形状和尺寸、引线数目和排列、固定和锁定装置等。</li>
+<li>电气特性：指明在接口电缆的各条线上出现的电压的范围。物理层的电气特性规定了在物理连接上传输二进制位流时线路上信号电压高低、阻抗匹配情况、传输速率和距离的限制等。</li>
+<li>功能特性：规定了接口信号的来源、作用以及其他信号之间的关系。即物理接口上各条信号线的功能分配和确切定义。</li>
+<li>规程特性：定义了再信号线上进行二进制比特流传输的一组操作过程，包括各信号线的工作顺序和时序，使得比特流传输得以完成。</li>
+</ul>
+<p><strong>15. 数据链路层采用停止等待协议，是为了解决该层在传输中的哪些问题?是通过什么样的机制来解决这些问题的?</strong></p>
+<p>数据链路层采用停止 - 等待协议，主要为了解决传输中的以下问题，并通过相应机制解决：</p>
+<ol>
+<li>数据帧的可靠传输问题</li>
+</ol>
+<ul>
+<li><strong>问题描述</strong>：在数据传输过程中，可能会出现数据帧损坏、丢失等情况，导致接收方无法正确接收数据，影响数据传输的可靠性。</li>
+<li><strong>解决机制</strong>：<ul>
+<li><strong>帧编号</strong>：发送方对每个发送的数据帧进行编号，如0、1交替编号。接收方通过检查帧编号，可判断接收到的帧是否是期望的帧，避免重复接收或接收错误顺序的帧。</li>
+<li><strong>确认帧（ACK）</strong>：接收方每正确接收一个数据帧，就向发送方回送一个确认帧，告知发送方该帧已正确接收。发送方只有收到相应的确认帧后，才认为该数据帧成功传输，进而发送下一个数据帧。</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li>流量控制问题</li>
+</ol>
+<ul>
+<li><strong>问题描述</strong>：发送方和接收方的处理速度可能不匹配，如果发送方发送数据过快，接收方可能来不及处理，导致数据丢失。</li>
+<li><strong>解决机制</strong>：<ul>
+<li><strong>停止 - 等待机制</strong>：发送方每发送一个数据帧后，就停止发送，等待接收方的确认帧。只有收到确认帧后，才发送下一个数据帧。这就限制了发送方的发送速率，使其与接收方的处理能力相匹配，实现了流量控制。</li>
+</ul>
+</li>
+</ul>
+<p><strong>16. 简述 DNS 系统中域名迭代解析工作过程。</strong></p>
+<ul>
+<li>客户端发起请求</li>
+<li>本地域名服务器查询缓存 </li>
+<li>本地域名服务器向根域名服务器请求</li>
+<li>本地域名服务器向顶级域名服务器请求</li>
+<li>本地域名服务器向权限域名服务器请求</li>
+<li>本地域名服务器返回结果给客户端</li>
+</ul>
+<p><strong>17. 请描述曼彻斯特编码的规则是什么？这种编码有怎样的特点？</strong></p>
+<p>在曼彻斯特编码中，每一个比特位的周期 ( T ) 被分成两个相等的间隔。 </p>
+<ul>
+<li><strong>对于逻辑“1”</strong>：在 ( T&#x2F;2 ) 时刻，信号从高电平跳变到低电平。也就是说，在比特位的前半周期为高电平，后半周期为低电平。</li>
+<li><strong>对于逻辑“0”</strong>：在 ( T&#x2F;2 ) 时刻，信号从低电平跳变到高电平。即比特位的前半周期为低电平，后半周期为高电平。</li>
+</ul>
+<p>特点</p>
+<ul>
+<li><strong>自带时钟信息</strong></li>
+<li><strong>抗干扰能力较好</strong></li>
+<li><strong>编码效率较低</strong></li>
+</ul>
+<p><strong>18. 在使用TCP传送数据时，如果有一个确认报文段丢失了，是否一定会引起与该确认报文段对应的数据的重传？请简要说明说明理由。</strong></p>
+<p>发送方在发送数据报文段后会启动重传计时器，如果在计时器超时之前，发送方收到了后续的确认报文段，且这些确认报文段通过累积确认的方式间接确认了之前丢失确认报文段所对应的数据已经被接收方正确接收，那么发送方就不会重传该数据。例如，发送方发送了序列号为 1、2、3、4、5 的报文段，接收方正确接收后发送的确认报文段丢失，但之后接收方又发送了确认序列号为 6 的确认报文段，这就意味着序列号为 1 到 5 的报文段都已被正确接收，发送方无需重传。</p>
+<h1 id="重点协议总结"><a href="#重点协议总结" class="headerlink" title="重点协议总结"></a>重点协议总结</h1><h3 id="重点协议-1：滑动窗口"><a href="#重点协议-1：滑动窗口" class="headerlink" title="重点协议 1：滑动窗口"></a>重点协议 1：滑动窗口</h3><ul>
+<li><strong>所属层次</strong>：数据链路层和传输层均有应用</li>
+<li><strong>英文全称</strong>：Sliding Window Protocol</li>
+<li><strong>作用</strong>：<ul>
+<li><strong>流量控制</strong>：发送方通过滑动窗口机制，依据接收方的接收能力来调整发送数据的速率，避免因发送过快导致接收方来不及处理而丢包。例如在 TCP 协议中，接收方通过在确认报文段中通告自己的接收窗口大小，告知发送方自己当前能够接收的数据量，发送方根据此调整发送窗口大小。</li>
+<li><strong>提高传输效率</strong>：允许发送方在等待确认的同时继续发送多个数据帧或数据包，无需每发一个就等待确认，从而提高了信道的利用率。如在数据链路层的高级数据链路控制（HDLC）协议中，滑动窗口技术使得链路在等待确认帧的同时能持续发送多个帧，提升了数据传输的效率。</li>
+</ul>
+</li>
+</ul>
+<h3 id="重点协议-2：PPP-协议"><a href="#重点协议-2：PPP-协议" class="headerlink" title="重点协议 2：PPP 协议"></a>重点协议 2：PPP 协议</h3><ul>
+<li><strong>所属层次</strong>：数据链路层</li>
+<li><strong>英文全称</strong>：Point - to - Point Protocol</li>
+<li><strong>作用</strong>：<ul>
+<li><strong>建立、配置和测试数据链路</strong>：通过链路控制协议（LCP），PPP 能够自动协商并建立数据链路连接，同时检测链路的质量，在链路出现问题时进行测试和修复。例如在拨号上网场景中，PPP 可与网络服务提供商（ISP）的接入服务器建立链路连接。</li>
+<li><strong>支持多种网络层协议</strong>：借助网络控制协议（NCP），PPP 能支持不同的网络层协议，如 IP、IPX 等，在链路建立后协商网络层参数，为网络层数据的传输做好准备。</li>
+<li><strong>认证功能</strong>：支持诸如口令验证协议（PAP）和挑战握手验证协议（CHAP）等认证方式，增强了链路的安全性，确保只有合法的用户或设备能够接入网络。</li>
+</ul>
+</li>
+</ul>
+<h3 id="重点协议-3：CSMA-CD"><a href="#重点协议-3：CSMA-CD" class="headerlink" title="重点协议 3：CSMA&#x2F;CD"></a>重点协议 3：CSMA&#x2F;CD</h3><ul>
+<li><strong>所属层次</strong>：数据链路层（MAC 子层）</li>
+<li><strong>英文全称</strong>：Carrier Sense Multiple Access with Collision Detection</li>
+<li><strong>作用</strong>：用于共享介质局域网（如早期的以太网），解决多个设备同时竞争传输介质时的冲突问题。每个设备在发送数据前先监听信道，若信道空闲则发送数据，同时继续监听。一旦检测到冲突，立即停止发送，并发送一个冲突加强信号，通知其他设备。之后，各设备按照一定的退避算法等待一段时间后再次尝试发送，以此来减少冲突，提高网络的传输效率和可靠性。</li>
+</ul>
+<h3 id="重点协议-4：CSMA-CA"><a href="#重点协议-4：CSMA-CA" class="headerlink" title="重点协议 4：CSMA&#x2F;CA"></a>重点协议 4：CSMA&#x2F;CA</h3><ul>
+<li><strong>所属层次</strong>：数据链路层（MAC 子层）</li>
+<li><strong>英文全称</strong>：Carrier Sense Multiple Access with Collision Avoidance</li>
+<li><strong>作用</strong>：主要应用于无线局域网（WLAN）。由于无线通信环境中信号冲突难以像有线网络那样直接检测（无线信号传播特性导致隐藏节点等问题），CSMA&#x2F;CA 采用冲突避免机制。发送方在发送数据前，先监听信道，若信道空闲，并不立即发送，而是等待一个随机时间，若此时信道仍空闲，则发送数据。同时，发送方在发送数据前会先向接收方发送一个请求发送（RTS）帧，接收方回应一个允许发送（CTS）帧，其他设备收到 RTS&#x2F;CTS 帧后会在一段时间内避让，从而避免冲突，保障无线通信的顺畅。</li>
+</ul>
+<h3 id="重点协议-5"><a href="#重点协议-5" class="headerlink" title="重点协议 5"></a>重点协议 5</h3><ol>
+<li><strong>IP 协议</strong><ul>
+<li><strong>所属层次</strong>：网络层</li>
+<li><strong>英文全称</strong>：Internet Protocol</li>
+<li><strong>作用</strong>：为网络中的设备提供逻辑地址（IP 地址），实现不同网络之间的数据路由和转发。它将数据包从源主机通过网络传输到目的主机，不保证数据传输的可靠性，只管将数据包尽力投递到目标地址。</li>
+</ul>
+</li>
+<li><strong>ICMP 协议</strong><ul>
+<li><strong>所属层次</strong>：网络层（基于 IP 协议）</li>
+<li><strong>英文全称</strong>：Internet Control Message Protocol</li>
+<li><strong>作用</strong>：用于在 IP 网络设备之间传递控制消息，如网络是否可达、主机是否可达、路由是否可用等。例如，当网络出现故障时，路由器可通过 ICMP 向源主机发送不可达消息，帮助网络管理员诊断网络问题。常见的 Ping 命令就是利用 ICMP 协议来测试网络连通性。</li>
+</ul>
+</li>
+<li><strong>IGMP 协议</strong><ul>
+<li><strong>所属层次</strong>：网络层（基于 IP 协议）</li>
+<li><strong>英文全称</strong>：Internet Group Management Protocol</li>
+<li><strong>作用</strong>：用于 IP 主机向与其直接相连的路由器报告其多播组成员情况，使得路由器能够了解哪些主机属于哪些多播组，从而正确地转发多播数据包，实现多播通信。</li>
+</ul>
+</li>
+<li><strong>NAT 协议</strong><ul>
+<li><strong>所属层次</strong>：网络层</li>
+<li><strong>英文全称</strong>：Network Address Translation</li>
+<li><strong>作用</strong>：实现私有网络地址与公有网络地址之间的转换。在局域网内部使用私有 IP 地址，通过 NAT 设备将内部设备的私有 IP 地址转换为合法的公有 IP 地址，使得局域网内的多台设备可以共享少量的公有 IP 地址访问互联网，缓解了 IP 地址枯竭的问题，同时也在一定程度上保护了内部网络的安全性。</li>
+</ul>
+</li>
+<li><strong>DHCP 协议</strong><ul>
+<li><strong>所属层次</strong>：应用层（基于 UDP 协议）</li>
+<li><strong>英文全称</strong>：Dynamic Host Configuration Protocol</li>
+<li><strong>作用</strong>：自动为网络中的设备分配 IP 地址及其他网络配置参数，如子网掩码、默认网关、DNS 服务器地址等。当新设备接入网络时，DHCP 服务器会根据配置策略为其动态分配一个可用的 IP 地址，大大减轻了网络管理员手动配置 IP 地址的工作量，提高了网络管理的效率。</li>
+</ul>
+</li>
+<li><strong>ARP 协议</strong><ul>
+<li><strong>所属层次</strong>：网络层（介于数据链路层和网络层之间）</li>
+<li><strong>英文全称</strong>：Address Resolution Protocol</li>
+<li><strong>作用</strong>：将 IP 地址解析为对应的物理地址（MAC 地址）。在数据链路层传输数据时，需要使用目标设备的 MAC 地址，ARP 协议通过在局域网内发送广播请求，询问对应 IP 地址的 MAC 地址，拥有该 IP 地址的设备会回应其 MAC 地址，从而实现 IP 地址到 MAC 地址的映射，保证数据能够准确地在数据链路层进行传输。</li>
+</ul>
+</li>
+</ol>
+<h3 id="重点协议-6"><a href="#重点协议-6" class="headerlink" title="重点协议 6"></a>重点协议 6</h3><ol>
+<li><strong>TCP 协议</strong><ul>
+<li><strong>所属层次</strong>：传输层</li>
+<li><strong>英文全称</strong>：Transmission Control Protocol</li>
+<li><strong>作用</strong>：提供面向连接的、可靠的字节流传输服务。在传输数据前，通过三次握手建立连接，传输过程中通过序列号、确认号和滑动窗口机制保证数据的可靠传输、按序到达以及流量控制。适用于对数据准确性和完整性要求较高的应用场景，如文件传输、电子邮件、远程登录等。</li>
+</ul>
+</li>
+<li><strong>UDP 协议</strong><ul>
+<li><strong>所属层次</strong>：传输层</li>
+<li><strong>英文全称</strong>：User Datagram Protocol</li>
+<li><strong>作用</strong>：提供无连接的、不可靠的数据传输服务。UDP 协议在传输数据时无需建立连接，直接将数据封装成 UDP 数据包发送，速度快但不保证数据一定能正确到达目标主机，也不保证数据包的顺序。常用于对实时性要求较高、对数据准确性要求相对较低的应用场景，如视频流、音频流传输、实时游戏等。</li>
+</ul>
+</li>
+</ol>
+<h3 id="重点协议-7"><a href="#重点协议-7" class="headerlink" title="重点协议 7"></a>重点协议 7</h3><ol>
+<li><strong>RIP 协议</strong><ul>
+<li><strong>所属层次</strong>：应用层（基于 UDP 协议）</li>
+<li><strong>英文全称</strong>：Routing Information Protocol</li>
+<li><strong>作用</strong>：是一种内部网关协议（IGP），用于在自治系统（AS）内部交换路由信息。RIP 基于距离向量算法，通过定期向邻居路由器发送自己的路由表信息，每个路由器根据接收到的信息更新自己的路由表，以计算出到达网络中各个目的地的最佳路径。它以跳数作为衡量路径好坏的标准，最大跳数为 15，超过 15 则认为目标网络不可达。</li>
+</ul>
+</li>
+<li><strong>OSPF 协议</strong><ul>
+<li><strong>所属层次</strong>：网络层</li>
+<li><strong>英文全称</strong>：Open Shortest Path First</li>
+<li><strong>作用</strong>：同样是内部网关协议，基于链路状态算法。每个路由器通过向自治系统内的其他路由器发送链路状态通告（LSA），告知它们自己与相邻路由器的连接状态等信息。所有路由器根据收到的 LSA 构建一个全网的链路状态数据库，然后使用 Dijkstra 算法计算出到达各个网络的最短路径，从而生成路由表。相比 RIP，OSPF 收敛速度快，适合大规模网络。</li>
+</ul>
+</li>
+<li><strong>BGP 协议</strong><ul>
+<li><strong>所属层次</strong>：应用层（基于 TCP 协议）</li>
+<li><strong>英文全称</strong>：Border Gateway Protocol</li>
+<li><strong>作用</strong>：是一种外部网关协议（EGP），用于在不同的自治系统之间交换路由信息。由于不同自治系统可能采用不同的内部路由协议和策略，BGP 主要用于处理自治系统之间的路由选择和可达性问题，确保数据包能够在不同自治系统之间正确转发。BGP 基于路径向量算法，通过与其他自治系统的 BGP 路由器交换路由信息，选择最佳路径时会考虑多种因素，如自治系统路径长度、策略规则等。</li>
+</ul>
+</li>
+</ol>
+<h3 id="重点协议-8"><a href="#重点协议-8" class="headerlink" title="重点协议 8"></a>重点协议 8</h3><ol>
+<li><strong>HTTP 协议</strong><ul>
+<li><strong>所属层次</strong>：应用层</li>
+<li><strong>英文全称</strong>：HyperText Transfer Protocol</li>
+<li><strong>作用</strong>：用于在万维网（WWW）上传输超文本（如 HTML 页面），是浏览器与 Web 服务器之间通信的标准协议。它基于请求 - 响应模型，客户端（如浏览器）向服务器发送 HTTP 请求，服务器根据请求返回相应的 HTTP 响应，包括网页内容、状态码等信息，实现了网页的浏览、资源的获取等功能。目前广泛使用的是 HTTP&#x2F;1.1 和 HTTP&#x2F;2 版本，HTTP&#x2F;3 也在逐渐推广。</li>
+</ul>
+</li>
+<li><strong>SMTP 协议</strong><ul>
+<li><strong>所属层次</strong>：应用层</li>
+<li><strong>英文全称</strong>：Simple Mail Transfer Protocol</li>
+<li><strong>作用</strong>：负责邮件的发送和传输，从发件人的邮件客户端或邮件服务器将邮件传输到收件人的邮件服务器。它采用客户端&#x2F;服务器模式，通过与目标邮件服务器建立 TCP 连接，使用简单的文本命令来控制邮件的传输过程，确保邮件能够准确地在不同邮件系统之间传递。SMTP 协议可通过扩展支持 MIME 协议，以传输非纯文本的邮件内容，如图片、附件等。</li>
+</ul>
+</li>
+<li><strong>FTP 协议</strong><ul>
+<li><strong>所属层次</strong>：应用层</li>
+<li><strong>英文全称</strong>：File Transfer Protocol</li>
+<li><strong>作用</strong>：用于在网络上进行文件传输，提供了一种标准的机制，使客户端能够与服务器建立连接，实现文件的上传（从本地计算机传输到服务器）和下载（从服务器传输到本地计算机）操作。FTP 使用两个并行的 TCP 连接，一个用于控制连接（端口号 21），用于传输命令和响应；另一个用于数据连接（默认端口号 20），用于实际的文件数据传输。</li>
+</ul>
+</li>
+<li><strong>DNS 协议</strong><ul>
+<li><strong>所属层次</strong>：应用层</li>
+<li><strong>英文全称</strong>：Domain Name System</li>
+<li><strong>作用</strong>：将人类可读的域名（如 <a target="_blank" rel="noopener" href="http://www.example.com)解析为计算机能够识别的/">www.example.com）解析为计算机能够识别的</a> IP 地址。在互联网中，用户通常使用域名来访问网站，但计算机在网络通信中需要使用 IP 地址。DNS 系统通过分布式的数据库和一系列查询机制，当用户输入域名时，DNS 服务器会查找对应的 IP 地址，并将其返回给用户的设备，使得用户能够顺利访问相应的网站或网络资源。</li>
+</ul>
+</li>
+<li><strong>URL</strong><ul>
+<li><strong>所属层次</strong>：应用层概念（并非严格意义上的协议）</li>
+<li><strong>英文全称</strong>：Uniform Resource Locator</li>
+<li><strong>作用</strong>：用于唯一标识互联网上的资源位置，它是一种对资源的抽象定位方式。一个完整的 URL 包含了资源的访问协议（如 http:&#x2F;&#x2F;、ftp:&#x2F;&#x2F; 等）、服务器地址（域名或 IP 地址）、端口号（可选）、资源路径等信息，帮助用户和应用程序准确地找到并访问网络上的各种资源，如网页、文件、图片等。</li>
+</ul>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://kkkkrs.github.io">kkkkr</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://kkkkrs.github.io/2024/12/30/%E8%AE%A1%E7%BD%91%E7%AE%80%E7%AD%94%E9%A2%98%E5%92%8C%E5%8D%8F%E8%AE%AE/">https://kkkkrs.github.io/2024/12/30/%E8%AE%A1%E7%BD%91%E7%AE%80%E7%AD%94%E9%A2%98%E5%92%8C%E5%8D%8F%E8%AE%AE/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://kkkkrs.github.io" target="_blank">kristal</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/avatar.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">kkkkr</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/kkkkrs"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%85%A2%E5%90%AF%E5%8A%A8%E9%98%B6%E6%AE%B5"><span class="toc-number">1.</span> <span class="toc-text">慢启动阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%A5%E5%A1%9E%E9%81%BF%E5%85%8D%E9%98%B6%E6%AE%B5"><span class="toc-number">2.</span> <span class="toc-text">拥塞避免阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E9%87%8D%E4%BC%A0%E9%98%B6%E6%AE%B5"><span class="toc-number">3.</span> <span class="toc-text">快速重传阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%81%A2%E5%A4%8D%E9%98%B6%E6%AE%B5"><span class="toc-number">4.</span> <span class="toc-text">快速恢复阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B6%85%E6%97%B6%E9%87%8D%E4%BC%A0%E9%98%B6%E6%AE%B5"><span class="toc-number">5.</span> <span class="toc-text">超时重传阶段</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%87%8D%E7%82%B9%E5%8D%8F%E8%AE%AE%E6%80%BB%E7%BB%93"><span class="toc-number"></span> <span class="toc-text">重点协议总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E7%82%B9%E5%8D%8F%E8%AE%AE-1%EF%BC%9A%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3"><span class="toc-number">1.</span> <span class="toc-text">重点协议 1：滑动窗口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E7%82%B9%E5%8D%8F%E8%AE%AE-2%EF%BC%9APPP-%E5%8D%8F%E8%AE%AE"><span class="toc-number">2.</span> <span class="toc-text">重点协议 2：PPP 协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E7%82%B9%E5%8D%8F%E8%AE%AE-3%EF%BC%9ACSMA-CD"><span class="toc-number">3.</span> <span class="toc-text">重点协议 3：CSMA&#x2F;CD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E7%82%B9%E5%8D%8F%E8%AE%AE-4%EF%BC%9ACSMA-CA"><span class="toc-number">4.</span> <span class="toc-text">重点协议 4：CSMA&#x2F;CA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E7%82%B9%E5%8D%8F%E8%AE%AE-5"><span class="toc-number">5.</span> <span class="toc-text">重点协议 5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E7%82%B9%E5%8D%8F%E8%AE%AE-6"><span class="toc-number">6.</span> <span class="toc-text">重点协议 6</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E7%82%B9%E5%8D%8F%E8%AE%AE-7"><span class="toc-number">7.</span> <span class="toc-text">重点协议 7</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E7%82%B9%E5%8D%8F%E8%AE%AE-8"><span class="toc-number">8.</span> <span class="toc-text">重点协议 8</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/30/%E8%AE%A1%E7%BD%91%E7%AE%80%E7%AD%94%E9%A2%98%E5%92%8C%E5%8D%8F%E8%AE%AE/" title="计网简答题和协议">计网简答题和协议</a><time datetime="2024-12-30T12:17:35.000Z" title="发表于 2024-12-30 20:17:35">2024-12-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A0%E6%95%B4%E7%90%86/" title="计算机网络复习整理">计算机网络复习整理</a><time datetime="2024-12-29T07:34:47.000Z" title="发表于 2024-12-29 15:34:47">2024-12-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/27/%E8%AE%A1%E7%BD%91%E8%80%83%E7%82%B9%E6%A2%B3%E7%90%86/" title="计网考点梳理">计网考点梳理</a><time datetime="2024-12-27T12:19:18.071Z" title="发表于 2024-12-27 20:19:18">2024-12-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/26/%E9%87%8D%E5%BA%86%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AE%80%E7%AD%94%E9%A2%98%E6%95%B4%E7%90%86/" title="重庆大学操作系统简答题整理">重庆大学操作系统简答题整理</a><time datetime="2024-12-26T02:26:06.000Z" title="发表于 2024-12-26 10:26:06">2024-12-26</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2024 By kkkkr</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
