@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://kkkkrs.github.io/img/avatar.png">
 <meta property="article:published_time" content="2024-12-30T12:17:35.000Z">
-<meta property="article:modified_time" content="2024-12-30T12:17:52.692Z">
+<meta property="article:modified_time" content="2024-12-30T13:32:14.461Z">
 <meta property="article:author" content="kkkkr">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://kkkkrs.github.io/img/avatar.png"><script type="application/ld+json">{
@@ -17,7 +17,7 @@
   "url": "https://kkkkrs.github.io/2024/12/30/%E8%AE%A1%E7%BD%91%E7%AE%80%E7%AD%94%E9%A2%98%E5%92%8C%E5%8D%8F%E8%AE%AE/",
   "image": "https://kkkkrs.github.io/img/avatar.png",
   "datePublished": "2024-12-30T12:17:35.000Z",
-  "dateModified": "2024-12-30T12:17:52.692Z",
+  "dateModified": "2024-12-30T13:32:14.461Z",
   "author": [
     {
       "@type": "Person",
@@ -158,7 +158,7 @@
   isHighlightShrink: false,
   isToc: true,
   pageType: 'post'
-}</script><link rel="stylesheet" href="/css/mweb-indigo.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">kristal</span></a><a class="nav-page-title" href="/"><span class="site-name">计网简答题和协议</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">计网简答题和协议</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-12-30T12:17:35.000Z" title="发表于 2024-12-30 20:17:35">2024-12-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-12-30T12:17:52.692Z" title="更新于 2024-12-30 20:17:52">2024-12-30</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">8.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>24分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p><strong>1. 请结合网络层、链路层及 VLAN 的相关协议原理,说明Ping否恰当并说明理由。</strong></p>
+}</script><link rel="stylesheet" href="/css/mweb-indigo.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">kristal</span></a><a class="nav-page-title" href="/"><span class="site-name">计网简答题和协议</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">计网简答题和协议</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-12-30T12:17:35.000Z" title="发表于 2024-12-30 20:17:35">2024-12-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-12-30T13:32:14.461Z" title="更新于 2024-12-30 21:32:14">2024-12-30</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">8.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>24分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p><strong>1. 请结合网络层、链路层及 VLAN 的相关协议原理,说明Ping否恰当并说明理由。</strong></p>
 <ol>
 <li>Ping 通过 ICMP 发送报文;ICMP 封装在 IP 报文中向下传递;</li>
 <li>IP 向下传递的时候需要执行 ARP 地址解析协议,解析目标地址的物理地址;</li>
@@ -200,7 +200,26 @@
 <li>OSPF只有链路状态发生变化时才用洪泛法；RIP定期交换信息。</li>
 </ul>
 <p><strong>9. 请分别描述 DV 和 LS 两种路由算法的基本思想。</strong><br>距离向量是一种分布式路由算法。每个节点知道与其邻居的链路距离，将已知的最短距离向量通告给所有邻居，并使用接收到的向量来更新自己的向量。定期重复这一过程。<br>链路状态是距离向量的替代方案。每个节点通过链路状态包（LSPs）洪泛其邻居的信息。所有节点学习完整的网络拓扑图，<br>运行 Dijkstra 算法来计算通往每个目的地的路径。</p>
-<p><strong>10. 请分别给出不同网络层次所对应的互联设备名称并简述各自的基本工作原理。</strong><br>物理层<br>    中继器<br>    - <strong>基本工作原理</strong>： 中继器工作在物理层，主要功能是对信号进行再生和放大。在网络传输中，信号会因传输距离增加而衰减，导致信号失真，影响数据传输的准确性。中继器接收衰减的信号，将其恢复到原始的强度和形状，然后重新发送出去，以延长信号的传输距离。例如，在早期的以太网中，使用同轴电缆连接计算机，当电缆长度超过一定限制时，就需要中继器来增强信号，确保数据能够准确传输到更远的设备。<br>2. <strong>数据链路层互联设备 - 网桥（Bridge）与交换机（Switch）</strong><br>    - <strong>网桥基本工作原理</strong>：网桥工作在数据链路层，它依据MAC地址来转发数据帧。网桥刚接入网络时，其MAC地址表为空。当网桥从某个端口接收到数据帧后，会记录帧中的源MAC地址与该端口的对应关系，从而逐渐学习网络中的MAC地址分布。对于接收到的数据帧，网桥会根据目的MAC地址在MAC地址表中查找对应的转发端口。若找到匹配项，就将数据帧从该端口转发出去；若未找到，则向除接收端口外的所有其他端口转发（泛洪）。例如，在一个由多个子网组成的局域网中，网桥可以连接不同子网，并根据MAC地址决定数据帧在子网间的转发路径。<br>    - <strong>交换机基本工作原理</strong>：交换机本质上也是数据链路层设备，同样基于MAC地址转发数据帧。它通过对每个端口接收到的数据帧的源MAC地址进行学习，构建并维护MAC地址表。与网桥不同的是，交换机通常具有多个端口，并且采用硬件ASIC芯片实现数据的高速转发。当交换机接收到数据帧时，它会快速查找MAC地址表，根据目的MAC地址将数据帧直接转发到对应的端口，大大提高了数据转发的效率。现代交换机还支持全双工通信，允许设备同时进行数据的发送和接收。<br>3. <strong>网络层互联设备 - 路由器（Router）</strong><br>    - <strong>基本工作原理</strong>：路由器工作在网络层，主要依据IP地址来转发数据包。路由器中维护着路由表，路由表包含了网络地址与下一跳地址的映射关系。当路由器接收到一个数据包时，它首先检查数据包的目的IP地址，然后在路由表中查找匹配的条目。如果找到匹配的路由条目，路由器会根据条目中指定的下一跳地址，将数据包转发到相应的端口；如果没有找到匹配条目，根据配置，路由器可能会丢弃数据包或向源设备发送不可达消息。路由表的生成可以是静态配置的，也可以通过动态路由协议（如RIP、OSPF等）自动学习网络拓扑变化并更新。例如，在一个跨区域的企业网络中，路由器连接不同的子网和广域网链路，根据数据包的目的IP地址，选择最佳路径将数据包转发到目标网络。<br>4. <strong>应用层互联设备 - 网关（Gateway）</strong><br>    - <strong>基本工作原理</strong>：网关工作在应用层，它是一种复杂的网络互联设备，用于连接不同体系结构的网络或在不同协议之间进行转换。网关可以理解为一个“协议转换器”，当两个使用不同协议的网络需要进行通信时，网关会对收到的数据进行协议转换，使其能够被目标网络所理解和处理。例如，企业内部网络使用私有IP地址和特定的内部通信协议，而要与外部互联网进行通信，就需要通过网关（如防火墙、代理服务器等）将内部协议转换为互联网通用的TCP&#x2F;IP协议，并进行地址转换（NAT），实现内部网络与外部网络的互联互通。同时，网关还可以提供诸如安全过滤、应用代理等功能，保障网络通信的安全和合规性。 </p>
+<p><strong>10. 请分别给出不同网络层次所对应的互联设备名称并简述各自的基本工作原理。</strong></p>
+<ol>
+<li><strong>物理层 中继器</strong><ul>
+<li><strong>基本工作原理</strong>： 中继器工作在物理层，主要功能是对信号进行再生和放大。在网络传输中，信号会因传输距离增加而衰减，导致信号失真，影响数据传输的准确性。中继器接收衰减的信号，将其恢复到原始的强度和形状，然后重新发送出去，以延长信号的传输距离。例如，在早期的以太网中，使用同轴电缆连接计算机，当电缆长度超过一定限制时，就需要中继器来增强信号，确保数据能够准确传输到更远的设备。</li>
+</ul>
+</li>
+<li><strong>数据链路层互联设备 - 网桥（Bridge）与交换机（Switch）</strong><ul>
+<li><strong>网桥基本工作原理</strong>：网桥工作在数据链路层，它依据MAC地址来转发数据帧。网桥刚接入网络时，其MAC地址表为空。当网桥从某个端口接收到数据帧后，会记录帧中的源MAC地址与该端口的对应关系，从而逐渐学习网络中的MAC地址分布。对于接收到的数据帧，网桥会根据目的MAC地址在MAC地址表中查找对应的转发端口。若找到匹配项，就将数据帧从该端口转发出去；若未找到，则向除接收端口外的所有其他端口转发（泛洪）。例如，在一个由多个子网组成的局域网中，网桥可以连接不同子网，并根据MAC地址决定数据帧在子网间的转发路径。</li>
+<li><strong>交换机基本工作原理</strong>：交换机本质上也是数据链路层设备，同样基于MAC地址转发数据帧。它通过对每个端口接收到的数据帧的源MAC地址进行学习，构建并维护MAC地址表。与网桥不同的是，交换机通常具有多个端口，并且采用硬件ASIC芯片实现数据的高速转发。当交换机接收到数据帧时，它会快速查找MAC地址表，根据目的MAC地址将数据帧直接转发到对应的端口，大大提高了数据转发的效率。现代交换机还支持全双工通信，允许设备同时进行数据的发送和接收。</li>
+</ul>
+</li>
+<li><strong>网络层互联设备 - 路由器（Router）</strong><ul>
+<li><strong>基本工作原理</strong>：路由器工作在网络层，主要依据IP地址来转发数据包。路由器中维护着路由表，路由表包含了网络地址与下一跳地址的映射关系。当路由器接收到一个数据包时，它首先检查数据包的目的IP地址，然后在路由表中查找匹配的条目。如果找到匹配的路由条目，路由器会根据条目中指定的下一跳地址，将数据包转发到相应的端口；如果没有找到匹配条目，根据配置，路由器可能会丢弃数据包或向源设备发送不可达消息。路由表的生成可以是静态配置的，也可以通过动态路由协议（如RIP、OSPF等）自动学习网络拓扑变化并更新。例如，在一个跨区域的企业网络中，路由器连接不同的子网和广域网链路，根据数据包的目的IP地址，选择最佳路径将数据包转发到目标网络。</li>
+</ul>
+</li>
+<li><strong>应用层互联设备 - 网关（Gateway）</strong><ul>
+<li><strong>基本工作原理</strong>：网关工作在应用层，它是一种复杂的网络互联设备，用于连接不同体系结构的网络或在不同协议之间进行转换。网关可以理解为一个“协议转换器”，当两个使用不同协议的网络需要进行通信时，网关会对收到的数据进行协议转换，使其能够被目标网络所理解和处理。例如，企业内部网络使用私有IP地址和特定的内部通信协议，而要与外部互联网进行通信，就需要通过网关（如防火墙、代理服务器等）将内部协议转换为互联网通用的TCP&#x2F;IP协议，并进行地址转换（NAT），实现内部网络与外部网络的互联互通。同时，网关还可以提供诸如安全过滤、应用代理等功能，保障网络通信的安全和合规性。</li>
+</ul>
+</li>
+</ol>
 <p><strong>12. 请给出TCP拥塞控制的具体做法。</strong></p>
 <p>TCP拥塞控制的具体做法主要包括以下几个阶段和机制：</p>
 <h3 id="慢启动阶段"><a href="#慢启动阶段" class="headerlink" title="慢启动阶段"></a>慢启动阶段</h3><ul>
